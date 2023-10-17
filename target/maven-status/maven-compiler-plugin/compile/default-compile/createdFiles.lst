@@ -1,0 +1,10 @@
+com/sample/jms/ibmmq/mq/MQProperties.class
+com/sample/jms/ibmmq/mq/MQGateway.class
+META-INF/spring-configuration-metadata.json
+com/sample/jms/ibmmq/config/SwaggerConfiguration.class
+com/sample/jms/ibmmq/SpringJmsIbmmqApplication.class
+com/sample/jms/ibmmq/mq/MQConfiguration.class
+com/sample/jms/ibmmq/mq/client/JmsClient.class
+com/sample/jms/ibmmq/mq/client/impl/JmsClientImpl.class
+com/sample/jms/ibmmq/mq/ConnectionConfiguration.class
+com/sample/jms/ibmmq/mq/controller/WebController.class

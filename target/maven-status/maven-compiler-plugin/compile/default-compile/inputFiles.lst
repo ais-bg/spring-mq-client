@@ -1,0 +1,9 @@
+/workspaces/spring-mq-client/src/main/java/com/sample/jms/ibmmq/mq/MQGateway.java
+/workspaces/spring-mq-client/src/main/java/com/sample/jms/ibmmq/mq/client/JmsClient.java
+/workspaces/spring-mq-client/src/main/java/com/sample/jms/ibmmq/mq/client/impl/JmsClientImpl.java
+/workspaces/spring-mq-client/src/main/java/com/sample/jms/ibmmq/SpringJmsIbmmqApplication.java
+/workspaces/spring-mq-client/src/main/java/com/sample/jms/ibmmq/mq/ConnectionConfiguration.java
+/workspaces/spring-mq-client/src/main/java/com/sample/jms/ibmmq/mq/MQProperties.java
+/workspaces/spring-mq-client/src/main/java/com/sample/jms/ibmmq/mq/controller/WebController.java
+/workspaces/spring-mq-client/src/main/java/com/sample/jms/ibmmq/config/SwaggerConfiguration.java
+/workspaces/spring-mq-client/src/main/java/com/sample/jms/ibmmq/mq/MQConfiguration.java
