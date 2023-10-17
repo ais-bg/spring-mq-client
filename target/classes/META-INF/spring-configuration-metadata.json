@@ -1,0 +1,52 @@
+{
+  "groups": [
+    {
+      "name": "ibm.mq",
+      "type": "com.sample.jms.ibmmq.mq.MQProperties",
+      "sourceType": "com.sample.jms.ibmmq.mq.MQProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "ibm.mq.channel",
+      "type": "java.lang.String",
+      "sourceType": "com.sample.jms.ibmmq.mq.MQProperties"
+    },
+    {
+      "name": "ibm.mq.host",
+      "type": "java.lang.String",
+      "sourceType": "com.sample.jms.ibmmq.mq.MQProperties"
+    },
+    {
+      "name": "ibm.mq.incoming-queue",
+      "type": "java.lang.String",
+      "sourceType": "com.sample.jms.ibmmq.mq.MQProperties"
+    },
+    {
+      "name": "ibm.mq.outgoing-queue",
+      "type": "java.lang.String",
+      "sourceType": "com.sample.jms.ibmmq.mq.MQProperties"
+    },
+    {
+      "name": "ibm.mq.password",
+      "type": "java.lang.String",
+      "sourceType": "com.sample.jms.ibmmq.mq.MQProperties"
+    },
+    {
+      "name": "ibm.mq.port",
+      "type": "java.lang.Integer",
+      "sourceType": "com.sample.jms.ibmmq.mq.MQProperties"
+    },
+    {
+      "name": "ibm.mq.queue-manager",
+      "type": "java.lang.String",
+      "sourceType": "com.sample.jms.ibmmq.mq.MQProperties"
+    },
+    {
+      "name": "ibm.mq.user",
+      "type": "java.lang.String",
+      "sourceType": "com.sample.jms.ibmmq.mq.MQProperties"
+    }
+  ],
+  "hints": []
+}
