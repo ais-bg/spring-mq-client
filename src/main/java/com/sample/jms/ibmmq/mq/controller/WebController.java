@@ -15,11 +15,18 @@ public class WebController {
                     + " as input .")
     @RequestMapping(value = "/produce" , method = RequestMethod.POST)
     @ResponseBody
-    public String produce(@RequestParam("msg") String msg) {
+    public String produce(@RequestParam("msg") String msg, @RequestParam("msgID") String msgID) {
 
-        jmsClient.send(msg);
+        jmsClient.send(msg, msgID);
         return "Message Sent Successfully from Client WebBrowser";
 
+    }
+
+    @ApiOperation(value = "Receive", nickname = "Read Test", notes = "Read Msg Test")
+    @RequestMapping(value = "/receive", method = RequestMethod.GET)
+    @ResponseBody
+    public String receive(@RequestParam("msgID") String msgID) {
+    	return jmsClient.receive(msgID);
     }
 
 }

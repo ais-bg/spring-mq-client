@@ -5,9 +5,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessagePostProcessor;
 
 import javax.inject.Named;
 import javax.jms.JMSException;
+import javax.jms.Message;
 import javax.jms.TextMessage;
 import java.util.function.Consumer;
 
@@ -39,10 +41,25 @@ public class MQGateway {
 
     }
 
-    public void send(String message) {
+    public void send(String message, String msgID) {
         log.info("Sending message to IBM Messaging Queue {}", message );
-        //log.info("send - Message: {}", message);
-        jmsTemplate.convertAndSend(mqProperties.getIncomingQueue(), message);
+        jmsTemplate.convertAndSend(mqProperties.getIncomingQueue(), message, new MessagePostProcessor() {
+            @Override
+        	public Message postProcessMessage(Message message) throws JMSException {
+        		message.setJMSCorrelationID("ID:" + msgID);
+        		log.info("Correlation ID: " + message.getJMSCorrelationID());
+        		return message;
+        	}
+        });
+    }
+
+    public String receive(String msgID) throws JMSException {
+        //    	Enumeration<?> enumeration; 
+        //    	
+        //    	jmsTemplate.browse("DEV.QUEUE.1", (session, browser) -> {
+        //    		enumeration = browser.getEnumeration();
+        //    	});
+                return "";
     }
 
 
