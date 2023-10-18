@@ -1,0 +1,26 @@
+name: OpenShift Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    
+    - name: Set up OpenShift CLI
+      run: |
+        # Log in to your OpenShift cluster
+        oc login --server=https://api.ocp.lab.lan:6443 --token=$OPENSHIFT_TOKEN
+        # Set the OpenShift project/namespace
+        oc project mq-client-ms
+    
+    - name: Trigger OpenShift pipeline
+      run: |
+        # Trigger your OpenShift pipeline here
+        oc start-build spring-mq-client-ms -n mq-client-ms
