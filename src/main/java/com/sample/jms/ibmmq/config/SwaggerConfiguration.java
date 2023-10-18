@@ -40,7 +40,7 @@ public class SwaggerConfiguration {
             .version(version)
                 .license(license)
                 .licenseUrl(licenseUrl)
-                .contact(new springfox.documentation.service.Contact("Prasad Dasari","www.dasariprasad.com","dvsavprasad@gmail.com"))
+                .contact(new springfox.documentation.service.Contact("AISolutions","www.aisolutions.bg","gyuley.kayadzha@aisolutions.bg"))
             .build()
 
         );
