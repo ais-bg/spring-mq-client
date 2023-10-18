@@ -25,6 +25,7 @@ public class ConnectionConfiguration {
     @Autowired
     MQProperties mqProperties;
 
+    
     @Bean
      public ConnectionFactory connectionFactory(
             @Value("${ibm.mq.queue.manager}") final String queueManager,
