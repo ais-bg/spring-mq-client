@@ -28,18 +28,18 @@ public class MQGateway {
         this.messageConsumer = messageConsumer;
     }
 
-    @JmsListener (destination = "${ibm.mq.incoming-queue}")
-    public void onMessage(TextMessage message) throws JMSException {
-        log.info("onMessage");
-        log.debug("onMessage - Message: {}", message);
+    // @JmsListener (destination = "${ibm.mq.incoming-queue}")
+    // public void onMessage(TextMessage message) throws JMSException {
+    //     log.info("onMessage");
+    //     log.debug("onMessage - Message: {}", message);
 
-        try {
-            messageConsumer.accept(message.getText());
-        } catch (JMSException e) {
-            log.error("Cannot consume message: {}", message, e);
-        }
+    //     try {
+    //         messageConsumer.accept(message.getText());
+    //     } catch (JMSException e) {
+    //         log.error("Cannot consume message: {}", message, e);
+    //     }
 
-    }
+    // }
 
     public void send(String message, String msgID) {
         log.info("Sending message to IBM Messaging Queue {}", message );
