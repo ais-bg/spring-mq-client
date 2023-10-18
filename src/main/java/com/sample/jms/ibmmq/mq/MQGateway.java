@@ -41,25 +41,21 @@ public class MQGateway {
 
     }
 
-    public void send(String message, String msgID) {
+    public void send(String message, String correlationId, String qName) {
         log.info("Sending message to IBM Messaging Queue {}", message );
-        jmsTemplate.convertAndSend(mqProperties.getIncomingQueue(), message, new MessagePostProcessor() {
-            @Override
+        jmsTemplate.convertAndSend(qName, message, new MessagePostProcessor() {
+        	@Override
         	public Message postProcessMessage(Message message) throws JMSException {
-        		message.setJMSCorrelationID("ID:" + msgID);
-        		log.info("Correlation ID: " + message.getJMSCorrelationID());
+        		message.setJMSCorrelationID("ID:" + correlationId);
         		return message;
         	}
         });
     }
 
-    public String receive(String msgID) throws JMSException {
-        //    	Enumeration<?> enumeration; 
-        //    	
-        //    	jmsTemplate.browse("DEV.QUEUE.1", (session, browser) -> {
-        //    		enumeration = browser.getEnumeration();
-        //    	});
-                return "";
+    public String receive(String correlationId, String qName) throws JMSException {
+    	String selector = "JMSCorrelationID = 'ID:" + correlationId + "'";
+    	String message = jmsTemplate.receiveSelectedAndConvert(qName, selector).toString();
+    	return message;
     }
 
 

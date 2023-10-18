@@ -10,23 +10,22 @@ public class WebController {
     @Autowired
     private JmsClient jmsClient;
 
-    @ApiOperation(value = "To publish message to IBM MQ", nickname = "Spring Integration with IBM-MQ ",
-          notes = "Endpoint to send message..."
-                    + " as input .")
+    @ApiOperation(value = "To publish message to IBM MQ", nickname = "Sends a message to a specified queue.",
+          notes = "Sends a UTF-8 encoded text message to an IBM MQ queue.")
     @RequestMapping(value = "/produce" , method = RequestMethod.POST)
     @ResponseBody
-    public String produce(@RequestParam("msg") String msg, @RequestParam("msgID") String msgID) {
+    public String produce(@RequestParam("msg") String msg, @RequestParam("correlationId") String correlationId, @RequestParam("qName") String qName) {
 
-        jmsClient.send(msg, msgID);
+        jmsClient.send(msg, correlationId, qName);
         return "Message Sent Successfully from Client WebBrowser";
 
     }
 
-    @ApiOperation(value = "Receive", nickname = "Read Test", notes = "Read Msg Test")
+    @ApiOperation(value = "Receive", nickname = "Browses the next message from a specified queue.", notes = "Non-destructively retrieves the next available text message from an IBM MQ queue.")
     @RequestMapping(value = "/receive", method = RequestMethod.GET)
     @ResponseBody
-    public String receive(@RequestParam("msgID") String msgID) {
-    	return jmsClient.receive(msgID);
+    public String receive(@RequestParam("correlationId") String correlationId, @RequestParam("qName") String qName) {
+    	return jmsClient.receive(correlationId, qName);
     }
 
 }

@@ -15,16 +15,16 @@ public class JmsClientImpl implements JmsClient {
     MQGateway mqGateway;
 
     @Override
-    public void send(String msg, String msgID) {
-        mqGateway.send(msg, msgID);
+    public void send(String msg, String correlationId, String qName) {
+        mqGateway.send(msg, correlationId, qName);
 
     }
 
     @Override
-    public String receive(String msgID) {
+    public String receive(String correlationId, String qName) {
     	String message = "";
     	try {
-			message = mqGateway.receive(msgID);
+			message = mqGateway.receive(correlationId, qName);
 		} catch (JMSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
