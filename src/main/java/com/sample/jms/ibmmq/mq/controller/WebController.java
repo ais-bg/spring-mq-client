@@ -15,7 +15,6 @@ public class WebController {
     @RequestMapping(value = "/produce" , method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     @ResponseBody
     public String produce(@RequestParam("msg") String msg, @RequestParam("correlationId") String correlationId, @RequestParam("qName") String qName) {
-
         jmsClient.send(msg, correlationId, qName);
         return "Message Sent Successfully from Client WebBrowser";
 
