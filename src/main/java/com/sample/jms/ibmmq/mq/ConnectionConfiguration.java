@@ -58,6 +58,8 @@ public class ConnectionConfiguration {
                          mqPassword);
                  log.info("password ==>" + mqUserName);
              }
+
+             
          } catch (Exception e) {
              throw new RuntimeException(e);
          }
