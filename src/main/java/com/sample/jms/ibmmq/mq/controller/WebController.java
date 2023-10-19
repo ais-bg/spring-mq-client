@@ -16,13 +16,11 @@ public class WebController {
     @RequestMapping(value = "/produce" , method = RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String produce(@RequestParam("msg") String msg, @RequestParam("correlationId") String correlationId, @RequestParam("qName") String qName) {
-
         jmsClient.send(msg, correlationId, qName);
         return "Message Sent Successfully from Client WebBrowser";
-
     }
 
-    @ApiOperation(value = "Receive", nickname = "Browses the next message from a specified queue.", notes = "Non-destructively retrieves the next available text message from an IBM MQ queue.")
+    @ApiOperation(value = "Receive", nickname = "Browses the next message from a specified queue.", notes = "Retrieves the next available text message from an IBM MQ queue.")
     @RequestMapping(value = "/receive", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String receive(@RequestParam("correlationId") String correlationId, @RequestParam("qName") String qName) {
