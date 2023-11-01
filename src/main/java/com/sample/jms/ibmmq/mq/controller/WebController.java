@@ -15,8 +15,8 @@ public class WebController {
           notes = "Sends a UTF-8 encoded text message to an IBM MQ queue.")
     @RequestMapping(value = "/produce" , method = RequestMethod.POST, produces=MediaType.TEXT_PLAIN_VALUE)
     @ResponseBody
-    public String produce(@RequestParam("msg") String msg, @RequestParam("correlationId") String correlationId, @RequestParam("qName") String qName) {
-        jmsClient.send(msg, correlationId, qName);
+    public String produce(@RequestParam("msg") String msg, @RequestParam("correlationId") String correlationId, @RequestParam("qName") String qName, @RequestParam("queueManager") String queueManager) {
+        jmsClient.send(msg, correlationId, qName, queueManager);
         return "Message Sent Successfully from Client WebBrowser";
     }
 

@@ -41,12 +41,15 @@ public class MQGateway {
 
     // }
 
-    public void send(String message, String correlationId, String qName) {
-        log.info("Sending message to IBM Messaging Queue {}", message );
+    public void send(String message, String correlationId, String qName, String queueManager) {
+        log.info("Sending message to IBM Messaging Queue {}", message);
+        log.info(queueManager);
+        this.mqProperties.setQueueManager(queueManager);
         jmsTemplate.convertAndSend(qName, message, new MessagePostProcessor() {
         	@Override
         	public Message postProcessMessage(Message message) throws JMSException {
         		message.setJMSCorrelationID("ID:" + correlationId);
+                log.info("Correlation ID: " + correlationId);
         		return message;
         	}
         });

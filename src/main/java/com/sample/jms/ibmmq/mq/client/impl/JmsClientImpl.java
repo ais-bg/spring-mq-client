@@ -1,6 +1,7 @@
 package com.sample.jms.ibmmq.mq.client.impl;
 
 import com.sample.jms.ibmmq.mq.MQGateway;
+import com.sample.jms.ibmmq.mq.MQProperties;
 import com.sample.jms.ibmmq.mq.client.JmsClient;
 
 import javax.jms.JMSException;
@@ -15,8 +16,9 @@ public class JmsClientImpl implements JmsClient {
     MQGateway mqGateway;
 
     @Override
-    public void send(String msg, String correlationId, String qName) {
-        mqGateway.send(msg, correlationId, qName);
+    public void send(String msg, String correlationId, String qName, String queueManager) {
+
+        mqGateway.send(msg, correlationId, qName, queueManager);
 
     }
 
