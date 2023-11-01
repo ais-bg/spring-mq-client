@@ -41,10 +41,13 @@ public class MQGateway {
 
     // }
 
-    public void send(String message, String correlationId, String qName, String queueManager) {
+    public void send(String message, String correlationId, String qName, String queueManager, String host, String channel, String user, String password) {
         log.info("Sending message to IBM Messaging Queue {}", message);
-        log.info(queueManager);
         this.mqProperties.setQueueManager(queueManager);
+        this.mqProperties.setHost(host);
+        this.mqProperties.setChannel(channel);
+        this.mqProperties.setUser(user);
+        this.mqProperties.setPassword(password);
         jmsTemplate.convertAndSend(qName, message, new MessagePostProcessor() {
         	@Override
         	public Message postProcessMessage(Message message) throws JMSException {
@@ -55,8 +58,13 @@ public class MQGateway {
         });
     }
 
-    public String receive(String correlationId, String qName) throws JMSException {
+    public String receive(String correlationId, String qName, String queueManager, String host, String channel, String user, String password) throws JMSException {
     	String selector = "JMSCorrelationID = 'ID:" + correlationId + "'";
+        this.mqProperties.setQueueManager(queueManager);
+        this.mqProperties.setHost(host);
+        this.mqProperties.setChannel(channel);
+        this.mqProperties.setUser(user);
+        this.mqProperties.setPassword(password);
     	String message = jmsTemplate.receiveSelectedAndConvert(qName, selector).toString();
     	return message;
     }
