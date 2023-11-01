@@ -15,16 +15,23 @@ public class WebController {
           notes = "Sends a UTF-8 encoded text message to an IBM MQ queue.")
     @RequestMapping(value = "/produce" , method = RequestMethod.POST, produces=MediaType.TEXT_PLAIN_VALUE)
     @ResponseBody
-    public String produce(@RequestParam("msg") String msg, @RequestParam("correlationId") String correlationId, @RequestParam("qName") String qName, @RequestParam("queueManager") String queueManager, @RequestParam("host") String host, @RequestParam("channel") String channel, @RequestParam("user") String user, @RequestParam("password") String password) {
-        jmsClient.send(msg, correlationId, qName, queueManager, host, channel, user, password);
+    public String produce(@RequestParam("msg") String msg, @RequestParam("correlationId") String correlationId, @RequestParam("qName") String qName) {
+        jmsClient.send(msg, correlationId, qName);
         return "Message Sent Successfully from Client WebBrowser";
     }
 
     @ApiOperation(value = "Receive", nickname = "Browses the next message from a specified queue.", notes = "Retrieves the next available text message from an IBM MQ queue.")
     @RequestMapping(value = "/receive", method = RequestMethod.GET, produces=MediaType.TEXT_PLAIN_VALUE)
     @ResponseBody
-    public String receive(@RequestParam("correlationId") String correlationId, @RequestParam("qName") String qName, @RequestParam("queueManager") String queueManager, @RequestParam("host") String host, @RequestParam("channel") String channel, @RequestParam("user") String user, @RequestParam("password") String password) {
-    	return jmsClient.receive(correlationId, qName, queueManager, host, channel, user, password);
+    public String receive(@RequestParam("correlationId") String correlationId, @RequestParam("qName") String qName) {
+    	return jmsClient.receive(correlationId, qName);
+    }
+
+    @ApiOperation(value = "ConfigureProperties", nickname = "Configure MQ Connection Properties.", notes = "Configure MQ Connection Properties.")
+    @RequestMapping(value = "/configureProperties", method = RequestMethod.POST, produces=MediaType.TEXT_PLAIN_VALUE)
+    @ResponseBody
+    public void configureProperties(@RequestParam("queueManager") String queueManager, @RequestParam("host") String host, @RequestParam("channel") String channel, @RequestParam("user") String user, @RequestParam("password") String password) {
+    	jmsClient.configureProperties(queueManager, host, channel, user, password);
     }
 
 }
