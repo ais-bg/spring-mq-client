@@ -1,8 +1,10 @@
 package com.sample.jms.ibmmq.mq.controller;
 
+import com.sample.jms.ibmmq.mq.DynamicPropertiesConfig;
 import com.sample.jms.ibmmq.mq.client.JmsClient;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,11 +29,22 @@ public class WebController {
     	return jmsClient.receive(correlationId, qName);
     }
 
+    @Value("${ibm.mq.queue.manager}")
+    private String queueManagerProperty;
+
+    @Autowired
+    private DynamicPropertiesConfig dynamicPropertiesConfig;
     @ApiOperation(value = "ConfigureProperties", nickname = "Configure MQ Connection Properties.", notes = "Configure MQ Connection Properties.")
-    @RequestMapping(value = "/configureProperties", method = RequestMethod.POST, produces=MediaType.TEXT_PLAIN_VALUE)
+    @PostMapping(value = "/configureProperties", produces=MediaType.TEXT_PLAIN_VALUE)
     @ResponseBody
-    public void configureProperties(@RequestParam("queueManager") String queueManager, @RequestParam("host") String host, @RequestParam("channel") String channel, @RequestParam("user") String user, @RequestParam("password") String password) {
-    	jmsClient.configureProperties(queueManager, host, channel, user, password);
+    public void configureProperties(@RequestParam("queueManager") String queueManager) {
+    	queueManagerProperty = queueManager;
+        jmsClient.configureProperties(queueManager);
+    }
+
+    @GetMapping("/getProperty")
+    public String getProperty() {
+        return dynamicPropertiesConfig.getQueueManager();
     }
 
 }

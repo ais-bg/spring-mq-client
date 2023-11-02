@@ -59,12 +59,8 @@ public class MQGateway {
     	return message;
     }
 
-    public void configureProperties(String queueManager, String host, String channel, String user, String password){
-        this.mqProperties.setQueueManager(queueManager);
-        this.mqProperties.setHost(host);
-        this.mqProperties.setChannel(channel);
-        this.mqProperties.setUser(user);
-        this.mqProperties.setPassword(password);
+    public void configureProperties(String queueManager){
+        // this.mqProperties.setQueueManager(queueManager);
     }
 
 

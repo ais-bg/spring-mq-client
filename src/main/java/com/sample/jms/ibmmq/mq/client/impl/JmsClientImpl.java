@@ -35,8 +35,8 @@ public class JmsClientImpl implements JmsClient {
     }
 
     @Override
-    public void configureProperties(String queueManager, String host, String channel, String user, String password){
-        mqGateway.configureProperties(queueManager, host, channel, user, password);
+    public void configureProperties(String queueManager){
+        mqGateway.configureProperties(queueManager);
     }
 
 }
