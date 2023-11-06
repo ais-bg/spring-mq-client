@@ -3,14 +3,12 @@ package com.sample.jms.ibmmq.mq;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessagePostProcessor;
 
 import javax.inject.Named;
 import javax.jms.JMSException;
 import javax.jms.Message;
-import javax.jms.TextMessage;
 import java.util.function.Consumer;
 
 @Named
@@ -58,11 +56,6 @@ public class MQGateway {
     	String message = jmsTemplate.receiveSelectedAndConvert(qName, selector).toString();
     	return message;
     }
-
-    public void configureProperties(String queueManager){
-        // this.mqProperties.setQueueManager(queueManager);
-    }
-
 
 }
 

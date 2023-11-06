@@ -6,5 +6,4 @@ public interface JmsClient {
 
     public String receive(String correlationId, String qName);
 
-    public void configureProperties(String queueManager);
 }

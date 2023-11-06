@@ -1,7 +1,6 @@
 package com.sample.jms.ibmmq.mq.client.impl;
 
 import com.sample.jms.ibmmq.mq.MQGateway;
-import com.sample.jms.ibmmq.mq.MQProperties;
 import com.sample.jms.ibmmq.mq.client.JmsClient;
 
 import javax.jms.JMSException;
@@ -32,11 +31,6 @@ public class JmsClientImpl implements JmsClient {
 			e.printStackTrace();
 		}
     	return message;
-    }
-
-    @Override
-    public void configureProperties(String queueManager){
-        mqGateway.configureProperties(queueManager);
     }
 
 }
