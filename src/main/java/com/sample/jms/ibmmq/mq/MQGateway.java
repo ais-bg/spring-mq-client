@@ -2,11 +2,14 @@ package com.sample.jms.ibmmq.mq;
 
 
 import lombok.extern.slf4j.Slf4j;
+
+import org.apache.activemq.artemis.jms.client.ActiveMQDestination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessagePostProcessor;
 
 import javax.inject.Named;
+import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import java.util.function.Consumer;
@@ -39,12 +42,13 @@ public class MQGateway {
 
     // }
 
-    public void send(String message, String correlationId, String qName) {
+    public void send(String message, String correlationId, String qName, String replyQueue) {
         log.info("Sending message to IBM Messaging Queue {}", message);
         jmsTemplate.convertAndSend(qName, message, new MessagePostProcessor() {
         	@Override
         	public Message postProcessMessage(Message message) throws JMSException {
         		message.setJMSCorrelationID("ID:" + correlationId);
+                message.setJMSReplyTo((Destination) ActiveMQDestination.createDestination(replyQueue, ActiveMQDestination.TYPE.QUEUE));
                 log.info("Correlation ID: " + correlationId);
         		return message;
         	}

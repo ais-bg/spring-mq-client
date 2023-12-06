@@ -15,9 +15,9 @@ public class JmsClientImpl implements JmsClient {
     MQGateway mqGateway;
 
     @Override
-    public void send(String msg, String correlationId, String qName) {
+    public void send(String msg, String correlationId, String qName, String replyQueue) {
 
-        mqGateway.send(msg, correlationId, qName);
+        mqGateway.send(msg, correlationId, qName, replyQueue);
 
     }
 
