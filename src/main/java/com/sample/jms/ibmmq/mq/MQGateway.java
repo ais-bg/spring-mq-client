@@ -7,11 +7,19 @@ import org.apache.activemq.artemis.jms.client.ActiveMQDestination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessagePostProcessor;
+import org.springframework.jms.support.destination.DestinationResolver;
+import org.springframework.jms.support.destination.JndiDestinationResolver;
+
+import ch.qos.logback.core.net.QueueFactory;
+import ch.qos.logback.core.util.JNDIUtil;
 
 import javax.inject.Named;
 import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.Message;
+import javax.jms.Queue;
+import javax.naming.*;
+
 import java.util.function.Consumer;
 
 @Named
@@ -48,7 +56,7 @@ public class MQGateway {
         	@Override
         	public Message postProcessMessage(Message message) throws JMSException {
         		message.setJMSCorrelationID("ID:" + correlationId);
-                message.setJMSReplyTo((Destination) ActiveMQDestination.createDestination(replyQueue, ActiveMQDestination.TYPE.QUEUE));
+                message.setJMSReplyTo(ActiveMQDestination.createQueue(ActiveMQDestination.createQueueAddressFromName(replyQueue)));
                 log.info("Correlation ID: " + correlationId);
         		return message;
         	}
