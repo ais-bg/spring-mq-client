@@ -10,6 +10,9 @@ import org.springframework.jms.core.MessagePostProcessor;
 import org.springframework.jms.support.destination.DestinationResolver;
 import org.springframework.jms.support.destination.JndiDestinationResolver;
 
+import com.ibm.mq.MQQueue;
+import com.ibm.mq.jms.MQQueueFactory;
+
 import ch.qos.logback.core.net.QueueFactory;
 import ch.qos.logback.core.util.JNDIUtil;
 
@@ -52,11 +55,22 @@ public class MQGateway {
 
     public void send(String message, String correlationId, String qName, String replyQueue) {
         log.info("Sending message to IBM Messaging Queue {}", message);
+        com.ibm.mq.jms.MQQueue replyQueueInstance;
+        try {
+            replyQueueInstance = new com.ibm.mq.jms.MQQueue(replyQueue);
+            log.info("Reply Queue initialized successfully.");
+        } catch (JMSException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            replyQueueInstance = null;
+            log.info("Error initializing Reply Queue!");
+        }
+        Destination replyDestination = (Destination) replyQueueInstance;
         jmsTemplate.convertAndSend(qName, message, new MessagePostProcessor() {
         	@Override
         	public Message postProcessMessage(Message message) throws JMSException {
         		message.setJMSCorrelationID("ID:" + correlationId);
-                message.setJMSReplyTo(ActiveMQDestination.createQueue(ActiveMQDestination.createQueueAddressFromName(replyQueue)));
+                message.setJMSReplyTo(replyDestination);
                 log.info("Correlation ID: " + correlationId);
         		return message;
         	}
