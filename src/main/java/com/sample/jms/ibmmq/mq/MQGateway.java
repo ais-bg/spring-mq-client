@@ -53,7 +53,7 @@ public class MQGateway {
 
     // }
 
-    public void send(String message, String correlationId, String qName, String replyQueue) {
+    public void send(String message, String correlationId, String messageID, String qName, String replyQueue) {
         log.info("Sending message to IBM Messaging Queue {}", message);
         com.ibm.mq.jms.MQQueue replyQueueInstance;
         try {
@@ -71,6 +71,7 @@ public class MQGateway {
         	public Message postProcessMessage(Message message) throws JMSException {
         		message.setJMSCorrelationID("ID:" + correlationId);
                 message.setJMSReplyTo(replyDestination);
+                message.setJMSMessageID("ID:" + messageID);
                 log.info("Correlation ID: " + correlationId);
         		return message;
         	}
